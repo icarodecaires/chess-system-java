@@ -1,6 +1,6 @@
 package boardgame;
 
-//alteracaooo
+
 public class Position {
 	
 	private int row;
