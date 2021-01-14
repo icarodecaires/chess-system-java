@@ -15,7 +15,7 @@ public class Rook extends ChessPiece {
 	
 	@Override
 	public String toString() {
-		return "R";
+		return "T";
 	}
 	
 	@Override
@@ -53,7 +53,7 @@ public class Rook extends ChessPiece {
 		
 		//VALIDANDO MOVIMENOS PARA A DIREITA DO TABULEIRO --------------------
 		//Enquanto existir posição válida e não existir peça na posição irá setar a posição da matriz como verdadeira
-		p.setValues(position.getRow(), position.getColumn() - +1);
+		p.setValues(position.getRow(), position.getColumn() +1);
 		while(getBoard().positionExists(p) && !getBoard().thereIsAPiece(p)) {
 			mat[p.getRow()][p.getColumn()] = true;
 			p.setColumn(p.getColumn() + 1);
