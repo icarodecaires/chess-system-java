@@ -22,6 +22,7 @@ public class Board {
 	public int getColumns() {
 		return columns;
 	}
+	
 
 	public Piece piece(int row, int column) {
 		if (!positionExists(row, column)) {
