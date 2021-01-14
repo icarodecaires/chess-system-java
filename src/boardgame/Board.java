@@ -1,12 +1,11 @@
 package boardgame;
 
 public class Board {
-	
+
 	private int rows;
 	private int columns;
 	private Piece[][] pieces;
-	
-	
+
 	public Board(int rows, int columns) {
 		if (rows < 1 || columns < 1) {
 			throw new BoardException("Erro ao Criar o Tabuleiro é necessário pelo menos uma linha e uma coluna");
@@ -16,7 +15,6 @@ public class Board {
 		pieces = new Piece[rows][columns];
 	}
 
-
 	public int getRows() {
 		return rows;
 	}
@@ -24,46 +22,65 @@ public class Board {
 	public int getColumns() {
 		return columns;
 	}
-	
+
 	public Piece piece(int row, int column) {
 		if (!positionExists(row, column)) {
 			throw new BoardException("Posição não Existe");
 		}
 		return pieces[row][column];
 	}
-	
-	//verifica se existe uma peça em determinada posição
+
+	// verifica se existe uma peça em determinada posição
 	public Piece piece(Position position) {
-		//verifica se a posição é válida
+		// verifica se a posição é válida
 		if (!positionExists(position)) {
 			throw new BoardException("Posição não Existe");
 		}
 		return pieces[position.getRow()][position.getColumn()];
 	}
-	
-	//colocar determinada peça em determinada posição
+
+	// colocar determinada peça em determinada posição
 	public void placePiece(Piece piece, Position position) {
-		//verifica se ja existe outra peça nesta posição
+		// verifica se ja existe outra peça nesta posição
 		if (thereIsAPiece(position)) {
-			throw new BoardException("Existe outra peça na posição selecionada "+position);
+			throw new BoardException("Existe outra peça na posição selecionada " + position);
 		}
 		pieces[position.getRow()][position.getColumn()] = piece;
 		piece.position = position;
 	}
-	
-	//verifica se existe uma posição no tabuleiro em determinada linha e culuna
+
+	// Remove uma peça de determinada posição do tabuleiro
+	public Piece removePiece(Position position) {
+		// verifica se a posição é válida
+		if (!positionExists(position)) {
+			throw new BoardException("Posição não Existe");
+		}
+		
+		if(piece(position) == null) {
+			return null;
+		}
+		
+		Piece aux = piece(position);
+		aux.position = null;
+		pieces[position.getRow()][position.getColumn()] = null;
+		return aux;
+		
+		
+	}
+
+	// verifica se existe uma posição no tabuleiro em determinada linha e culuna
 	private boolean positionExists(int row, int column) {
 		return row >= 0 && row < rows && column >= 0 && column < columns;
 	}
-	
-	//verifica se existe uma posição no tabuleiro através da posição
+
+	// verifica se existe uma posição no tabuleiro através da posição
 	public boolean positionExists(Position position) {
-		return positionExists(position.getRow(),position.getColumn());
+		return positionExists(position.getRow(), position.getColumn());
 	}
-	
-	//verifica se existe uma peça em determinada posição
+
+	// verifica se existe uma peça em determinada posição
 	public boolean thereIsAPiece(Position position) {
-		//verifica se a posição é válida
+		// verifica se a posição é válida
 		if (!positionExists(position)) {
 			throw new BoardException("Posição não Existe");
 		}

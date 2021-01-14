@@ -1,6 +1,10 @@
 package application;
 
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
 import chess.ChessPiece;
+import chess.ChessPosition;
 import chess.Color;
 
 public class UI {
@@ -27,7 +31,23 @@ public class UI {
 	public static final String ANSI_PURPLE_BACKGROUND = "\u001B[45m";
 	public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
 	public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
-
+	
+	
+	//Lendo uma posição do usuário
+	public static ChessPosition readChessPosition(Scanner sc) {
+		try {
+			String s = sc.nextLine();
+			char column = s.charAt(0);
+			int row = Integer.parseInt(s.substring(1));
+			
+			return new ChessPosition(column,row);
+		}
+		catch(RuntimeException e) {
+			throw new InputMismatchException("Erro ao ler posição de xadres posições válidas (a1 a h8)");
+		}
+	}
+	
+	//Imprime o tabuleiro
 	public static void printBoard(ChessPiece[][] pieces) {
 		for (int i = 0; i < pieces.length; i++) {
 			System.out.print(8 - i + " ");
@@ -38,7 +58,8 @@ public class UI {
 		}
 		System.out.println("  a b c d e f g h");
 	}
-
+	
+	//Imprime peça no tabuleiro
 	private static void printPiece(ChessPiece piece) {
 		if (piece == null) {
 			System.out.print("-");
