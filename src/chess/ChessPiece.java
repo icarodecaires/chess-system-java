@@ -22,5 +22,10 @@ public abstract class ChessPiece extends Piece {
 		ChessPiece p = (ChessPiece)getBoard().piece(position);
 		return p != null && p.getColor() != color;
 	}
+	
+	//Retorna A posição da peça no formato do tabuleiro 
+	public ChessPosition getChessPosition() {
+		return ChessPosition.fromPosition(position);
+	}
 }
 
