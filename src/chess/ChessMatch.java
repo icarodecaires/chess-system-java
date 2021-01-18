@@ -103,7 +103,8 @@ public class ChessMatch {
 	
 	//movendo a peça no tabuleiro
 	private Piece makeMove(Position source, Position target) {
-		Piece p = board.removePiece(source);
+		ChessPiece p = (ChessPiece) board.removePiece(source);
+		p.increaseMoveCount();
 		Piece capturedPiece = board.removePiece(target);
 		
 		//Caso o movimento retorne uma peça capturada esta sera removida da lista de peças do tabuleiro e adicionada a lista de peças capturadas
@@ -119,7 +120,8 @@ public class ChessMatch {
 	
 	//Desfazer o movimento, caso o jogador faço um movimento ilegal este deverá ser desfeito
 	private void undoMove(Position source, Position target, Piece capturedPiece) {
-		Piece p = board.removePiece(target);
+		ChessPiece p = (ChessPiece) board.removePiece(target);
+		p.decreaseMoveCount();
 		board.placePiece(p, source);
 		
 		if(capturedPiece != null) {
